@@ -20,8 +20,7 @@ def get_commit_information(URL):
 	page = requests.get(URL)
 	soup = BeautifulSoup(page.content, "html.parser")
 	results = soup.find("div", class_="js-diff-progressive-container")
-	# print(results)	
-	
+
 	###  Gets Names and Diff ID's  ###
 	m = re.findall('.*data-tagsearch-path="(.*)".*', str(results))
 	
@@ -37,13 +36,12 @@ def get_commit_information(URL):
 	
 	##  Line Additions | Deletions
 	results = soup.find("div", class_="toc-diff-stats")
-	m = re.findall('.*<strong>(.*) .*', str(results))
-	print(m)
-
+	line_changes = re.findall('.*<strong>(.*) .*', str(results))
+	
 	###  Amount of files changes
-	b = re.findall('''.\n *(.*) changed.*''', str(results))[0]
-	print("files changed:", b)
-
+	file_changes = re.findall('''.\n *(.*) changed.*''', str(results))[0]
+	
+	return (file_changes, line_changes, files)
 
 commit, url = github_commit_latest(URL)
 get_commit_information(url)
