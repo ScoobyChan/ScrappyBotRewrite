@@ -1,0 +1,6 @@
+To do:
+# Github update using git file check
+# Git upload (Beta Bot only)
+# Git update
+# Python check and install if needed
+
